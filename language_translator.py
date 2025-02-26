@@ -1,19 +1,21 @@
 # Import the following module
-import tkinter as tk  # install Tkinter
+import tkinter as tk  
 from tkinter import *
 from tkinter import ttk
-from PIL import ImageTk, Image  # install pillow
-from googletrans import Translator  # install googletrans==3.1.0a0 , newer versions may or may not work
+from PIL import ImageTk, Image  
+from googletrans import Translator  
 from tkinter import messagebox
-import pyperclip as pc # install paperclip for copy function
-from gtts import gTTS  # install gTTS for text to speech, speech to text functionality
+import pyperclip as pc 
+from gtts import gTTS  
 import os
-import speech_recognition as spr # install speech recognition for speech to text functionality
+import speech_recognition as spr 
 
 # UI 
 root = tk.Tk()
 root.title('Langauge Translator')
 root.geometry('1060x660')
+root.maxsize(1060,660)
+root.minsize(1060,660)
 
 # Assigning title bar icon
 title_bar_icon = PhotoImage(file="resources/icons/translation.png")
@@ -782,7 +784,7 @@ resized_clear_text_icon = clear_text_icon_img.resize((25, 25), Image.Resampling.
 clear_text_icon = ImageTk.PhotoImage(resized_clear_text_icon)
 
 copy_text_icon_img = Image.open("resources/icons/copy.png")
-resized_copy_text_icon = copy_text_icon_img.resize((25, 25), Image.Resampling.LANCZOS)
+resized_copy_text_icon = copy_text_icon_img.resize((20, 20), Image.Resampling.LANCZOS)
 copy_text_icon = ImageTk.PhotoImage(resized_copy_text_icon)
 
 read_aloud_icon_img = Image.open("resources/icons/text_to_speech.png")
@@ -801,24 +803,24 @@ t2 = Text(root, width=45, height=13, borderwidth=0, relief=RIDGE,font=('Calibri'
 t2.place(x=550, y=200)
 
 # Button settings 
-translate_button = Button(root, text=" Translate Text ",image=translate_text_icon, compound="right", relief=RIDGE, borderwidth=0, font=('Corbel', 20, 'bold'), cursor="hand2",
+translate_button = Button(root, text=" Translate Text ",image=translate_text_icon, compound="right", relief=RIDGE, borderwidth=0, font=('Corbel', 15, 'bold'), cursor="hand2",
                 command=translate,bg="#ffffff")
 translate_button.place(x=40, y=565)
 
-clear_button = Button(root, text=" Clear ",image=clear_text_icon, compound="right", relief=RIDGE, borderwidth=0, font=('Corbel', 20, 'bold'), cursor="hand2",
+clear_button = Button(root, text=" Clear ",image=clear_text_icon, compound="right", relief=RIDGE, borderwidth=0, font=('Corbel', 15, 'bold'), cursor="hand2",
                command=clear,bg="#ffffff")
 clear_button.place(x=270, y=565)
 
-copy_button = Button(root, text=" Copy ",image=copy_text_icon, compound="right", relief=RIDGE, borderwidth=0, font=('Corbel', 20, 'bold'), cursor="hand2",
+copy_button = Button(root, text=" Copy ",image=copy_text_icon, compound="right", relief=RIDGE, borderwidth=0, font=('Corbel', 15, 'bold'), cursor="hand2",
                 command=copy,bg="#ffffff")
 copy_button.place(x=485, y=565)
 
-read_aloud = Button(root, text=" Read Aloud ",image=read_aloud_icon, compound="right" ,relief=RIDGE, borderwidth=0, font=('Corbel', 20, 'bold'), cursor="hand2",
+read_aloud = Button(root, text=" Read Aloud ",image=read_aloud_icon, compound="right" ,relief=RIDGE, borderwidth=0, font=('Corbel', 15, 'bold'), cursor="hand2",
                 command=texttospeech,bg="#ffffff")
 read_aloud.place(x=650, y=565)
 
 voice_input = Button(root, text=" Voice Input ", image=voice_input_icon, compound="right", relief=RIDGE, borderwidth=0,
-                     font=('Corbel', 20, 'bold'), cursor="hand2", command=speechtotext, bg="#ffffff")
+                     font=('Corbel', 15, 'bold'), cursor="hand2", command=speechtotext, bg="#ffffff")
 voice_input.place(x=850, y=565)
 
 root.mainloop()
