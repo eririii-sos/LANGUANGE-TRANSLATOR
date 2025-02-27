@@ -12,7 +12,7 @@ import speech_recognition as spr
 
 # UI 
 root = tk.Tk()
-root.title('Langauge Translator')
+root.title('LANGUAGE TRANSLATOR')
 root.geometry('1060x660')
 root.maxsize(1060,660)
 root.minsize(1060,660)
