@@ -27,7 +27,7 @@ output=''
 def translate():
     language_1 = t1.get("1.0", "end-1c")
     global cl
-    cl = choose_langauge.get()
+    cl = choose_language.get()
 
     if language_1 == '':
         messagebox.showerror('Language Translator', 'Please fill the Text Box for Translation')
@@ -44,14 +44,14 @@ def clear():
     t1.delete(1.0, 'end')
     t2.delete(1.0, 'end')
 
-# Copy of Textbox Dats Function
+# Copy Textbox Data Function
 def copy():
     pc.copy(str(output))
 
 # Text to Speech Function
 def texttospeech():
  global cl
- cl = choose_langauge.get()
+ cl = choose_language.get()
  if os.path.exists("text_to_speech.mp3"):
   os.remove("text_to_speech.mp3")
  mytext =output
@@ -278,15 +278,14 @@ def texttospeech():
  except ValueError as e:
      messagebox.showerror('Language Translator', cl+' is currently not supported for Read Aloud (Text to Speech)')
      print(f"An error occurred: {e}")
-     # Handle the error or perform any necessary cleanup actions
+     
  except AssertionError as e:
-     # Handle the "No text to speak" error
      messagebox.showerror('Language Translator','Please enter the data to be translated before using Read Aloud')
      print("Error:", e)
 
-# Speech to Text  Function [ Please Note : Only English is currently supported as from-language in Speech to Text Translation ]
+# Speech to Text Function [ Please Note : Only English is currently supported as from-language in Speech to Text Translation ]
 def speechtotext():
-   cl = choose_langauge.get()
+   cl = choose_language.get()
    language = 'en'
 
    if cl == 'English':
@@ -510,31 +509,31 @@ def speechtotext():
    recog1 = spr.Recognizer()
    mc = spr.Microphone()
 
-   with mc as source:
-
-       recog1.adjust_for_ambient_noise(source, duration=0.9)
-       audio = recog1.listen(source)
-       get_sentence = recog1.recognize_google(audio)
-
    try:
-       t1.insert("end",get_sentence + "\n")
-       translator = Translator()
-       text_to_translate = translator.translate(get_sentence, src=from_lang, dest=to_lang)
-       text = text_to_translate.text
+        with mc as source:
+            recog1.adjust_for_ambient_noise(source, duration=0.9)
+            audio = recog1.listen(source)
+            get_sentence = recog1.recognize_google(audio)
 
-       speak = gTTS(text=text, lang=to_lang, slow=False)
-       global output
-       output = speak.text
-       t2.insert("end",output + "\n")
-       translate()
+        t1.insert("end", get_sentence + "\n")
+        
+        translator = Translator()
+        text_to_translate = translator.translate(get_sentence, src=from_lang, dest=to_lang)
+        text = text_to_translate.text
+
+        speak = gTTS(text=text, lang=to_lang, slow=False)
+        global output
+        output = speak.text
+
+        t2.insert("end", output + "\n")
+        translate()
 
    except spr.UnknownValueError:
-           t1.insert("Unable to Understand the Input")
+        t1.insert("end", "! 𝙐𝙣𝙖𝙗𝙡𝙚 𝙩𝙤 𝙐𝙣𝙙𝙚𝙧𝙨𝙩𝙖𝙣𝙙 𝙩𝙝𝙚 𝙄𝙣𝙥𝙪𝙩 !\n")
 
    except spr.RequestError as e:
-           t1.insert("Unable to provide Required Output".format(e))
-
-
+        t1.insert("end", f"Unable to provide Required Output. Error: {e}\n")
+        
 # Assigning Background Image
 img = ImageTk.PhotoImage(Image.open('translator.png'))
 label = Label(image=img)
@@ -660,8 +659,8 @@ auto_detect.current(0)
 l = tk.StringVar()
 
 # To-language combobox
-choose_langauge = ttk.Combobox(root, width=20, textvariable=l, state='readonly', font=('Corbel', 20, 'bold'))
-choose_langauge['values'] = (
+choose_language = ttk.Combobox(root, width=20, textvariable=l, state='readonly', font=('Corbel', 20, 'bold'))
+choose_language['values'] = (
     'Afrikaans',
     'Albanian',
     'Arabic',
@@ -771,8 +770,8 @@ choose_langauge['values'] = (
     'Zulu',
 )
 
-choose_langauge.place(x=600, y=140)
-choose_langauge.current(0)
+choose_language.place(x=600, y=140)
+choose_language.current(0)
 
 # Load and resize the icon images for buttons
 translate_text_icon_img = Image.open("resources/icons/documents.png")
